@@ -4,19 +4,53 @@
    Author's custom styles
    ========================================================================== */
 
+body {
+	padding-top: 100px;
+}
+
+.jumbotron {
+	padding: 0px;
+}
+
+.jumbotron iframe {
+	display: block;
+}
+
+.logo {
+	margin: 27px 0;
+}
+
+.navbar {
+	background-color: #fff;
+	border-bottom: #eee 2px solid;
+}
+
+@media (max-width: 768px) {
+	.logo {
+    	margin-left: auto;
+    	margin-right: auto;
+    	display: block;
+	}
+}
+
+.navbar-toggle {
+	display: none;
+}
 
 
 
 
+/* FORM VALIDATION */
 
+.has-error .form-control,
+.has-error .form-control,
+input:focus:invalid,
+textarea:focus:invalid{
+	border:solid 2px #F5192F !important;
+}
 
-
-
-
-
-
-
-
-
-
-
+input:focus:valid,
+textarea:focus:valid{
+	border:solid 2px #18E109;
+	background-color:#fff;
+}
