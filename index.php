@@ -7,13 +7,13 @@
 
 $gacode = "UA-XXXXX-X";
 
+$messagetext = $name  = $email = $subject = $message = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mailto = "website@example.com";
   $mailsubject = 'new submission from example.com';
 
   $errors = array();
-
-  $messagetext = $name  = $email = $subject = $message = "";
 
   $name = test_input($_POST["name"]);
   $email = test_input($_POST["email"]);
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $messagetext = '<div class="alert alert-danger">'.join($errors,"<br>").'</div>';  
   } else {
     // send email
-    $mailheaders = 'From: '$mailto . "\r\n" .
+    $mailheaders = 'From: '.$mailto . "\r\n" .
     'Reply-To: ' . $mailto . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
     $mailmessage =  'From: '.$email.'\n'.
@@ -99,7 +99,7 @@ function has_error($fieldname) {
     <!--[if lt IE 8]>
                 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
             <![endif]-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
