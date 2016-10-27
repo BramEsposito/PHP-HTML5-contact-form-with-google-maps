@@ -93,12 +93,11 @@ function has_error($fieldname) {
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-  </head>
-
-  <body>
-    <!--[if lt IE 8]>
-                <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-            <![endif]-->
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
     <nav class="navbar navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -123,10 +122,10 @@ function has_error($fieldname) {
         <div class="col-md-6">
           <h2>Contact us</h2>
           <p>Aliquam lectus orci, adipiscing et, sodales ac, feugiat non, lacus. Ut dictum velit nec est. Quisque posuere, purus sit amet malesuada blandit, sapien sapien auctor arcu, sed pulvinar felis mi sollicitudin tortor. Maecenas volutpat, nisl et dignissim pharetra, urna lectus ultrices est, vel pretium pede turpis id velit.</p>
-          <form action="/" method="post" accept-charset="utf-8">
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="utf-8">
             <div class="form-group<?php print has_error(" name "); ?>">
               <label for="name">Name:</label>
-              <input type="input" id="name" required class="form-control" name="name" value="<?php print $name; ?>">
+              <input type="input" id="name" placeholder="Please enter your name" required class="form-control" name="name" value="<?php print $name; ?>">
             </div>
             <div class="form-group<?php print has_error(" email "); ?>">
               <label>Email:</label>
@@ -134,7 +133,7 @@ function has_error($fieldname) {
             </div>
             <div class="form-group<?php print has_error(" subject "); ?>">
               <label for="subject">Subject</label>
-              <input type="input" name="subject" required id="subject" class="form-control" value="<?php print $subject; ?>">
+              <input type="input" name="subject" placeholder="Tell us what you want to talk about"  required id="subject" class="form-control" value="<?php print $subject; ?>">
             </div>
             <div class="form-group<?php print has_error(" message "); ?>">
               <label for="message">Message:</label>
@@ -158,6 +157,15 @@ function has_error($fieldname) {
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript" charset="utf-8" async defer>
+      $('.maps').mousedown(function () {
+          $('.maps iframe').css("pointer-events", "auto");
+      });
+
+      $( ".maps" ).mouseleave(function() {
+        $('.maps iframe').css("pointer-events", "none"); 
+      });
+    </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
