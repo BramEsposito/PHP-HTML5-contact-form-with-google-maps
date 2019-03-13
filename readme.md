@@ -1,7 +1,10 @@
 # PHP HTML5 contact form with google maps
 
+- Honeypot spam prevention
 - HTML5
-- PHP 5+
+- HTML5 form validation
+- PHP serverside validation
+- PHP 7+
 - Responsive
 - Bootstrap 
 - Drag and drop install

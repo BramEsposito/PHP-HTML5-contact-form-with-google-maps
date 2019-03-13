@@ -10,40 +10,44 @@ $gacode = "UA-XXXXX-X";
 $messagetext = $name  = $email = $subject = $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $mailto = "website@example.com";
-  $mailsubject = 'new submission from example.com';
+  if($_POST["email"] == "name@example.com") {
+    $mailto = "website@example.com";
+    $mailsubject = 'new submission from example.com';
 
-  $errors = array();
+    $errors = array();
 
-  $name = test_input($_POST["name"]);
-  $email = test_input($_POST["email"]);
-  $subject = test_input($_POST["subject"]);
-  $message = test_input($_POST["message"]);
+    $name = test_input($_POST["name"]);
+    $email = test_input($_POST["first_email"]);
+    $subject = test_input($_POST["subject"]);
+    $message = test_input($_POST["message"]);
 
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors['email'] = "Please correct your email address"; 
-  }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $errors['email'] = "Please correct your email address"; 
+    }
 
-  is_required('name');
-  is_required('email');
-  is_required('subject');
-  is_required('message');
+    is_required('name');
+    is_required('email');
+    is_required('subject');
+    is_required('message');
 
-  if (count($errors) > 0) {
-    $messagetext = '<div class="alert alert-danger">'.join($errors,"<br>").'</div>';  
+    if (count($errors) > 0) {
+      $messagetext = '<div class="alert alert-danger">'.join($errors,"<br>").'</div>';  
+    } else {
+      // send email
+      $mailheaders = 'From: '.$mailto . "\r\n" .
+      'Reply-To: ' . $mailto . "\r\n" .
+      'X-Mailer: PHP/' . phpversion();
+      $mailmessage =  'From: '.$email.'\n'.
+                  'Email: '.$email.'\n'.
+                  'Subject: '.$subject.'\n'.
+                  'Message: '.$message.'\n';
+      mail($mailto, $mailsubject, $mailmessage, $mailheaders);
+      // TODO: add logging
+      $messagetext = '<div class="alert alert-success">Thank you for your message, we will get in touch shortly.</div>';  
+      $name  = $email = $subject = $message = "";
+    }
   } else {
-    // send email
-    $mailheaders = 'From: '.$mailto . "\r\n" .
-    'Reply-To: ' . $mailto . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
-    $mailmessage =  'From: '.$email.'\n'.
-                'Email: '.$email.'\n'.
-                'Subject: '.$subject.'\n'.
-                'Message: '.$message.'\n';
-    mail($mailto, $mailsubject, $mailmessage, $mailheaders);
-    // TODO: add logging
-    $messagetext = '<div class="alert alert-success">Thank you for your message, we will get in touch shortly.</div>';  
-    $name  = $email = $subject = $message = "";
+    $messagetext = '<div class="alert alert-danger">It appears you are sending automated mail, please contact us otherwise</div>';  
   }
 }
 
@@ -89,6 +93,9 @@ function has_error($fieldname) {
       padding-top: 50px;
       padding-bottom: 20px;
     }
+    .confirm {
+      display: none;
+    }
     </style>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -129,7 +136,11 @@ function has_error($fieldname) {
             </div>
             <div class="form-group<?php print has_error(" email "); ?>">
               <label>Email:</label>
-              <input type="email" required name="email" placeholder="Enter a valid email address" title="Please enter a valid email address" class="form-control" value="<?php print $email; ?>">
+              <input type="email" required name="first_email" placeholder="Enter a valid email address" title="Please enter a valid email address" class="form-control" value="<?php print $email; ?>">
+            </div>
+            <div class="form-group confirm <?php print has_error(" email "); ?>">
+              <label>Email:</label>
+              <input type="email" required name="email" placeholder="Repeat your email address" title="Repeat your email address" class="form-control" value="name@example.com">
             </div>
             <div class="form-group<?php print has_error(" subject "); ?>">
               <label for="subject">Subject</label>
